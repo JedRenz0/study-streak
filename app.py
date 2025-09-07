@@ -61,8 +61,9 @@ def main():
     p_log = sub.add_parser("log", help="Log today's study subject")
     p_log.add_argument("subject", help="What you studied (e.g., 'calculus')")
 
-    args = parser.parse_args()
     sub.add_parser("stats", help="Show total days studied and longest streak")
+    args = parser.parse_args()
+
 
     if args.cmd == "log":
         d = log(args.subject)
