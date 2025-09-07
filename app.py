@@ -53,6 +53,15 @@ def stats():
 
     return {"days": len(by_day), "streak": best}
 
+def list_logs():
+    """Return logs sorted by date descending."""
+    data = _load()
+    items = data.get("logs", [])
+    # sort ISO dates descending; ISO sorts lexicographically by date safely
+    items_sorted = sorted(items, key=lambda x: x["date"], reverse=True)
+    return items_sorted
+
+
 
 def main():
     parser = argparse.ArgumentParser(description="Study Streak Tracker")
@@ -64,6 +73,9 @@ def main():
 
     # stats
     sub.add_parser("stats", help="Show total days studied and longest streak")
+    # after existing subcommands
+    sub.add_parser("list", help="Show all study logs (newest first)")
+
 
     args = parser.parse_args()
 
@@ -73,6 +85,9 @@ def main():
     elif args.cmd == "stats":
         s = stats()
         print(f"Days logged: {s['days']} | Best streak: {s['streak']}")
+    elif args.cmd == "list":
+        for item in list_logs():
+            print(f"{item['date']} | {item['subject']}")
 
     
 
