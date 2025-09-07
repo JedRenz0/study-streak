@@ -58,12 +58,14 @@ def main():
     parser = argparse.ArgumentParser(description="Study Streak Tracker")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
+    # log <subject>
     p_log = sub.add_parser("log", help="Log today's study subject")
     p_log.add_argument("subject", help="What you studied (e.g., 'calculus')")
 
+    # stats
     sub.add_parser("stats", help="Show total days studied and longest streak")
-    args = parser.parse_args()
 
+    args = parser.parse_args()
 
     if args.cmd == "log":
         d = log(args.subject)
@@ -72,7 +74,6 @@ def main():
         s = stats()
         print(f"Days logged: {s['days']} | Best streak: {s['streak']}")
 
-        print(f"Logged {args.subject!r} for {d}")
     
 
 
